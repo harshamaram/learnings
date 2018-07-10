@@ -28,13 +28,9 @@ The -x509 option tells req to create a self-signed cerificate. The -days 365 opt
 `openssl x509 -signkey domain.key -in domain.csr -req -days 365 -out domain.crt`
 
 ## Verify a Private Key Matches a Certificate and CSR
-`
-openssl rsa -noout -modulus -in domain3-pvt.key | openssl md5
-
-openssl x509 -noout -modulus -in domain3-pub.crt | openssl md5
-
-openssl req -noout -modulus -in domain3.csr | openssl md5
-`
+`openssl rsa -noout -modulus -in domain3-pvt.key | openssl md5`
+`openssl x509 -noout -modulus -in domain3-pub.crt | openssl md5`
+`openssl req -noout -modulus -in domain3.csr | openssl md5`
 
 *If the output of each command is identical there is an extremely high probability that the private key, certificate, and CSR are related.*
 
