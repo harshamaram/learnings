@@ -17,6 +17,7 @@ openssl x509 -in domain.crt -signkey domain.key -x509toreq -out domain.csr
 self signed certs displayes a warning that says that the certificate is not trusted by their computer or browser
 
 This command creates a 2048-bit private key (domain.key) and a self-signed certificate (domain.crt) from scratch:
+
 openssl req -newkey rsa:2048 -nodes -keyout domain3-pvt.key -x509 -days 365 -out domain3-pub.crt
 
 The -x509 option tells req to create a self-signed cerificate. The -days 365 option specifies that the certificate will be valid for 365 days. A temporary CSR is generated to gather information to associate with the certificate.
