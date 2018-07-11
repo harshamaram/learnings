@@ -13,7 +13,7 @@
 `[UNIX] openssl req -key domain.key -new -out domain.csr`
 
 ## Generate a CSR from an Existing Certificate and Private Key
-`openssl x509 -in domain.crt -signkey domain.key -x509 -out domain.csr`
+`openssl x509 -in domain.crt -signkey domain.key -x509toreq -out domain.csr`
 
 ## Generate a Self-Signed Certificate
 self signed certs displayes a warning that says that the certificate is not trusted by their computer or browser
