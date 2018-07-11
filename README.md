@@ -9,6 +9,7 @@
 *CSR file is not public key. It needs to be sent to CA autority to generate a public certificate OR self-signed public certificate can be generated.*
 
 ## Generate a CSR from an Existing Private Key
+*This is useful to generate CSR file based on the existing private key. This will be used by CA to generate CRT file*  
 `[UNIX] openssl req -key domain.key -new -out domain.csr`
 
 ## Generate a CSR from an Existing Certificate and Private Key
