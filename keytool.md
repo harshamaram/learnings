@@ -1,3 +1,4 @@
+![Key Tool Image](keytool.svg)
 ## Create and add unsigned keys to KeyStore
 *This command generates a 2048-bit RSA key pair, under the specified alias (domain), in the specified keystore file (keystore.jks)*  
 Input file: None  
