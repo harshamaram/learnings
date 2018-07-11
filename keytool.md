@@ -8,10 +8,17 @@ Input file: None
 Inputs: None  
 `keytool  -genkey  -alias [my-domain-alias]  -keyalg RSA -validity [365] -keystore [my-keystore.jks]`
 
-## Generate CSR file
+## Generate CSR file for the existing private key
 *Generates CSR file, which will be used by CA to generate SSL Certs*  
 Input file: my-keystore.jks  
 `keytool  -certreq  -alias [my-domain-alias] -file [generated-domain.csr] -keystore [my-keystore.jks]`
+
+## Import Signed/Root/Intermediate certificate
+*Imports the certificate signed by CA. It must match with the private key that exists in the keystore againt the alias-name*  
+`keytool -importcert  
+        -trustcacerts -file domain.crt  
+        -alias domain  
+        -keystore keystore.jks`
 
 ## Generates der file
 *Generates binary DER-encoded certificate. This is just an encrypted form of CRT file*  
