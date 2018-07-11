@@ -16,12 +16,14 @@
 `keytool  -list  -v  -keystore keystore.jks`
 
 ## Changing the keystore passowrd 
-keytool    -storepasswd     -keystore keystore.jks
+`keytool  -storepasswd   -keystore keystore.jks`
 
 ## Delete alias 
 `keytool -delete 
-        -alias domain 
-        -keystore keystore.jks  Rename alias  keytool -changealias 
+        -alias domain
+        -keystore keystore.jks`
+## Rename alias
+`keytool -changealias 
         -alias domain 
         -destalias newdomain 
         -keystore keystore.jks`
