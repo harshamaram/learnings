@@ -3,7 +3,7 @@
 [References](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
 
 ## Generate a Private Key and CSR
-`[UNIX] openssl req -newkey rsa:2048 -nodes -keyout domain.key -out domain.csr`
+`[UNIX] openssl req -newkey rsa:2048 -nodes -keyout domain.key -out domain.csr`  
 `[ WIN] openssl genrsa -out sample-domain3-pvt.key 2048`
 
 *CSR file is not public key. It needs to be sent to CA autority to generate a public certificate OR self-signed public certificate can be generated.*
