@@ -1,0 +1,280 @@
+Storage Gateway Types:
+1) File Gateway: Users NFS (Network File System)
+  --> to store flat files on S3
+  <diagram>
+2) volume Gateway: Uses iSCSI protocol
+* Block based storage
+* Live Virtual hard disk even with Operating system or SQL 
+* Saves as EBS snapshots
+ (a) Stored Volume
+	* Stores entire volume on OnPrime
+	* Backed up to S3 async via gateway
+	* Create storage volume on OnPrime and then mount Gateway as ISCSI device 
+	* Can support from 1GB to 16TB
+	<diagram>
+  (b) Cached Volume
+	* Does not keep all data OnPrime, keeps only recently used data
+	* Complete data will be on S3
+	* Users iSCSI mount protocol
+	<diagram>
+
+3) Tape Gateway	
+	* Backup solution
+	* Creates virtual tapes then moves to S3 or glacier
+	* very cost effective
+
+S3 Life cycle Management
+--
+While creating a bucket, under management object cycle can be created. It automatically moves object to S3-IA then to Glacier and then even delete forever. 
+
+Snow Ball
+* It basically bypasses Internet connection for import / export data
+* It is a physical container like briefcase via which data can be imported / exported to AWS S3.
+* Useful where NO or SLOW Internet connection
+Interesting use case:
+Aircraft may use snowball to gather all data then later it can be exported to AWS S3. 
+
+Snow Ball: On-board storage
+Snowball edge: Storage + compute (lambda)
+If Data is in Glacier and to import it, needs to be moved to S3 first and then export to SnowBall. 
+
+S3 Transfer Acceleration
+
+It uses Cloud Front Edge network to accelerate uploads to S3. 
+Instead f uploading to S3 directly, a distinct URL can be created at an edge location which accelerates the file transfer. 
+LAB: Create a bucket > Properties > Transfer Acceleration > Enable > Save (thats it)
+Copy the URl and use it. 
+
+dynamo DB
+* Fast and Flexible NoSQL
+COnsistent and <10ms latency at any scale 
+* supports both documents and key value data models
+* apt for web/mobile/ gaming / ad-tech / IoT and any other
+
+Stored on SSD
+Spread across 3 geographical distinct data centers (always)
+Eventual consistent read (default)
+Consistency across all copies of data is usually reached in a second
+strongly consistent read
+- Returns a read result that reflect all writes that received a successful response prior to the read (may not have same performance to that of eventual read)
+
+Basics
+--
+Tables
+Attributes (like columns)
+Items (like a row)
+
+DyDB supports up to 52 attributes
+
+Pricing
+--
+Write throughput $0.0065/hour for every 10 units
+Read throughput $0.0065/hour for every 50 units
+
+Example:
+For 1M read and 1M writes per data & for 28GB of data 
+= 1M write / 24 hours / 60 min /60 seconds
+= 11.6 writes/second 
+similarly 11.6 read / second
+
+unit = 1 read or write per second 
+It needs 12 units 
+
+write cost 	= 12 * 24 hours * $0.0065 / 10 units 
+			= $ 0.1872 / day
+similarly, read cost = $0.0374
+
+For 28Gb of data, first 25GB is free
+For 3 GB, $0.25 / GB / month
+	= $0.75 / month
+	
+Total = 30 days * (0.1872 + 0.0374) * 0.75
+	= $ 7.488 / month 
+
+Free tier: 25 read and 25 write capacity units free
+			
+LAB 
+Create new EC2 
+	Make sure to have dynamo full access
+	
+	yum update -y
+	tum install http24 php56 git -y
+	service httpd start 
+	chkconfig httpd on
+	cd /var/www/html
+	echo "<?phpinfo();?>" > test.php
+	git clone https://github.com/acloudgurus/dymanodb
+	
+	Installing PHP SDK
+	--
+	1) Install composer
+	ec2> curl -sS https://getcomposer.org/installer | php 
+	2) Installing PHP SDK
+	ec2> php composer.phar require aws/aws-sdk-php
+	
+Primary Key
+Single Attribute
+- called Partition key or Hash Key
+Composite Key 
+- combination of partition key and srt key (HASH & Range)
+
+
+Partition Key 
+* DyDB's partition key is an i/p to internal hash function. The o/p of this hash function determines the partition (location of the data)
+* This has to be unique. 
+
+Partition Key and Sort Key
+--
+* In this case there could be multiple items with same partition key, but they must have different sort key. 
+* Items with same partition key are stored together by sorted order. 
+
+Indexes
+--
+Local Secondary Index 
+- Has same partition key, but different sort key
+- Can only be created when creating a table. Can not be removed or modified later. 
+
+Global Secondary Index:
+- HAs different Partition key and different sort key
+- Can be added even after table creation. 
+
+Max of 5 LSI and 5 GSI can be created for a table. 
+
+STREAMS
+==
+If a new item is added STREAM capture image of entire item. 
+If an item is modified, STREAM capture before and after image
+If an item is deleted, STREAM capture before image of the item. 
+- Saved only for 24 hours in STREAM
+- Lambda functions can be created on the stream to persist somewhere else or trigger an action. 
+- This Lambda function can trigger SES (Simple Email Service) to send email.
+STREAMS are optional and can be enabled for any individial tables. 
+
+DyDB
+Throughput can be changed at anytime on any table. Hence called "Push Button Scalability"
+
+Access Control: Can be provided fine grained access control to web-identity providers. 
+
+QUERY:
+* Finds an item using ONLY the primary key
+* Can be optionally provide sortKey and use comparison operator to filter values
+* By default, it returns all attributes of the item. However, "ProjectionExpression" can be used to get selected attributes. 
+* Results are always sorted (if there is sort key) in ascending order. To change order, use "ScanIndexForward" to false (makes descending)
+
+SCAN:
+* Scan returns all items by default. Use "ProjectionExpression" to return specific attributes
+* Scan always scans the entire table. 
+
+Query is more efficient than scan. 
+
+DyDB Provisioned throughput calculations
+--
+* Units of Read
+- Rounded to increments of 4kb
+- Eventual consistent read consists 2 Reads / second
+- Strongly consistent read consists 1 Read / second
+
+Units of Write
+- All writes are 1kb
+- all writes consists 1 write / second
+
+If maximum provided thgoughput exceeds, it will send 400 HTTP status code - "ProvisionedThroughputExceededException"
+
+Read throughput:
+Example
+#1) 10 items of 1kbps with eventual consistency
+ = 10 (items) * 4kb / 4 / 2 (for evantual consistency)
+ = 5 units. 
+#2) 10 items of 6kbps with eventual
+ = 10 * 8 / 4 / 2 
+ = 10 units
+#3) 5 items of 10kb/s with eventual 
+ = 5 * 12 / 4 / 2
+ = 8 (rounded)
+#4) 5 items of 10kb/s with strong consistency 
+ = 5 * 12 / 4 = 15 
+
+Write throughputs 
+Example
+5 items of 10 kb/s 
+= 5 * 10
+= 50 units
+
+Using web identity providers w/ DyDB
+==
+<diagram page 50>
+1) Authenticate with providers
+2) Provider gives web identity token. 
+3) Make AssumeRoleWithWebIdentity 
+	with web identity tiken, 
+		APPID of the provider 
+		Amazon resource Name of the role
+4) AWS will return temporary security credentials which is valid for 1 hour. This response contains 
+i) Access key id, secret access key and session token
+ii) Expiration (time limit) - 1 hour
+iii) Assume role id
+iv) subject from web identity token (unique id from IAM)
+Using these temporary password, can access DyDB
+
+LAB:
+DyDB > select table > access control > Provider "facebook" > selection actions > create policy 
+* Copy the policy documents (#2)
+* Create a new role (say MyWebIdentityRole)  (#3)
+	Goto role for Identity provider Access > grant access to web identity providers > select facebook > give any random appid 
+* create a new policy (#4)
+	> update the policy from above(#2) 
+	> give policy name
+* attach the above policy #4 to role #3
+
+Conditional Writes
+* To make consistency of data, write operations can have conditions i.e., update a value only of the value equals to something specified. 
+* conditional writes are idempotent. 
+
+Atomic counter
+DyDB supports atomic counters with UpdateItem operation. 
+It simply increment or decrement the value of an existing attribute without interfering other write request (or current value). All requests are processed in teh order received. 
+Simple use case: Visitors to a web page counter. 
+
+Batch GetItem:
+This can retrieve up to 1MB of data which can contain as many as 100 items. 
+It can have data from multiple tables. 
+
+SQS
+Simple Queue Service
+It is a webservice that gives access to a message queue that can be used to store message while waiting for a computer to process them. 
+
+Amz SQS is a distributed queue system that enables web service applications to quickly and reliably queue messages that one component in the application generates and other consumed by another component. A queue is a temporary repository that are waiting to be processed. 
+
+* Messages can contain messages upto 256kb. 
+Adv
+- When provider is producing faster than consumer
+- when producer and consumers are intermittently connected to the network
+
+SQS ensures messages are delivered atleast once and they support multiple reads and writes interacting with same queue. 
+A single queue can be used by many distributed application component with each other to share the queue. 
+
+Amz SQS is not a First in First Out (order is not guaranteed). 
+If order is required, place a sequencing information in the message. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
