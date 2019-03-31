@@ -4,6 +4,8 @@ stringbuffer stringbuilder
 transient / volatile  
 exception handling  
 checked unchecked exceptions   
+multi thread programming  
+synchronized  
 java 8  
 forEach  
 api streams  
