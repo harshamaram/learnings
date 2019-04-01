@@ -5,6 +5,12 @@ stringbuffer stringbuilder
 transient / volatile  
 exception handling  
 checked unchecked exceptions   
+- checked exceptions: compile time verification.. like IOException, SQLExceptions
+- unchecked: sub classes of (java.lang.RuntimeException), which re runtime exceptions like NullPointerEx, ArrayIndexOutOfBoudsEx etc. 
+- java.lang.Error: Unrecoverable exceptions like OutOfMemeroExceptions
+- To create custom checked exceptions, extend java.lang.Exception
+- To Create custom unchecked exceptions, extend java.lang.RuntimeException
+
 multi thread programming  
 synchronized  
 java 8  
