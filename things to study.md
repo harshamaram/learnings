@@ -34,6 +34,18 @@ since java5, method can be overritten by changing return type, only if the retur
 ## Spring
 dependency injection
 transactions
+Spring DI
+- default bean scope is singleton
+- prototype scope returns a new object each time a bean is referred. 
+BeanFactory vs ApplicationContext
+- BeanFactory is useful for lazy loading. 
+- ApplicationCotext is eagar loading of beans. 
+Spring bean scope
+- singleton: this is default
+- prototype: new object created eachtime a bean is requested.
+- request: request scope
+- session: sesion scope
+- global: till lifecycyle of the application context
 
 ## spring boot
 
