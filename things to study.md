@@ -48,6 +48,7 @@ Spring bean scope
 - global: till lifecycyle of the application context
 
 ## spring boot
+declare application.properties to override springboot default settings
 
 ## design patterns
 
