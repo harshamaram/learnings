@@ -1,7 +1,10 @@
 ## core java
 equals / hashCode  
-equals vs compareTo  
-stringbuffer stringbuilder  
+comparable (compareTo) vs Comparator
+- Comparable interface forces Class to implement compareTo; which is useful for default sort implementation
+- Comparator (interface) has "compare method, which takes two arguments and compares; which is useful to implement sorting logic outside of declaring class. Sometimes, the source code of the original class may not be available, in which case this is the only option. 
+stringbuffer vs stringbuilder  
+- stringbuilder is not thread safe
 transient / volatile  
 exception handling  
 checked unchecked exceptions   
