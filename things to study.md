@@ -50,6 +50,7 @@ Spring bean scope
 - request: request scope
 - session: sesion scope
 - global: till lifecycyle of the application context
+## spring rest security
 
 ## spring boot
 declare application.properties to override springboot default settings
