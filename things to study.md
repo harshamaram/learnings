@@ -7,6 +7,9 @@ stringbuffer vs stringbuilder
 - stringbuilder is not thread safe
 
 transient / volatile  
+- volatile: always read value from main memory
+- transient: these variables will not be serialized during persistence  
+
 exception handling  
 checked unchecked exceptions   
 - checked exceptions: compile time verification.. like IOException, SQLExceptions
