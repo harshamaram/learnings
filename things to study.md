@@ -50,8 +50,8 @@ Spring bean scope
 ## spring boot
 declare application.properties to override springboot default settings
 GET - fetche resources
-POST - creates new resource
-PUT - udpates current resource
+POST - creates new resource - NOT idempotent
+PUT - udpates current resource - idempotent (many invocations is same as single invocation)
 DELETE - deletes a resource
 
 ## design patterns
