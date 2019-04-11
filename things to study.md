@@ -49,6 +49,10 @@ Spring bean scope
 
 ## spring boot
 declare application.properties to override springboot default settings
+GET - fetche resources
+POST - creates new resource
+PUT - udpates current resource
+DELETE - deletes a resource
 
 ## design patterns
 
