@@ -1,0 +1,31 @@
+GIT
+--
+
+set authentication
+git config --global user.name "LastName,FirstName"
+git config --global user.email "YourVanguardEmailAddress" 
+
+Clone:
+git clone https://U05N@bitbucket.vanguard.com:8443/scm/lsd/lsds-runtime.git
+
+List all existing branches:
+git branch -a
+
+Switch to branch:
+git checkout <branchname>
+
+Checkout from branch (which ever branch it is currently on):
+git pull
+
+Status:
+git status
+
+Add files:
+git add *
+
+Commit:
+git commit -m "SPINCREDS-63: updating MD file"
+
+Push:
+git push origin feature/SPINCREDS-63-EC2-LSDS
+
