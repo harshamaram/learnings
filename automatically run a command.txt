@@ -1,0 +1,5 @@
+# enabling this runs "set-env.bat" command everytime the command prompt opened
+# windows only
+
+reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun ^ /t REG_EXPAND_SZ /d "%"USERPROFILE"%\set-env.bat" /f
+
