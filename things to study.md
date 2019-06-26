@@ -50,7 +50,7 @@ Spring bean scope
 - request: request scope
 - session: sesion scope
 - global: till lifecycyle of the application context
-- Single transaction for multiple DAO methods: Use PROPAGATION = required
+- Single transaction for multiple DAO methods: check PROPAGATION_REQUIRED, PROPAGATION_REQUIRES_NEW, PROPAGATION_NESTED
 
 ## spring rest security
 
