@@ -1,0 +1,155 @@
+angular 
+uses typescript
+--
+can make test cases
+
+
+installation
+--
+install nodejs
+minimum version for angular 6.9
+
+# install npm
+
+#install angular cli
+npm install -g @angular/cli
+
+# test installation 
+ng --version
+
+# create a project
+ng new hello-world
+
+# running
+ng serve
+- this listens on http://localhost:4200
+
+Structure of angular application
+Folders
+e2e: end to end: end to end test: automated tests
+node_modules: store third party libraries
+src:
+	actual srouce code of the application
+src/app/app.module.ts
+src/app/app.components.*
+
+src/assets:
+	store static assets
+
+src/environments
+	configuration settings for different environments
+
+src/facicon.ico
+src/index.html
+
+src/main.ts
+	starting point of the application
+	bootstraps application module
+src/pollyfills.ts
+	fills the gaps between javascript and type script
+src/styles.css
+	global styles
+src/test.ts
+	setting up test environments
+
+.angular-cli
+	configuration for angular cli
+
+.editorconfig
+	make sure all team members use same editor settings
+.gitignore
+
+karma.conf.js
+	configuration for karma test runner
+package.json
+	defines all dependencies
+-------
+
+Java brains
+--
+Angular technologies
+angular CLi
+reactive programming, RxJS, Observables, operators
+Jasmine, Karma - testing
+Redux, ngRx
+
+----
+
+Component based model
+Header, sidebar, main body and footer can be components of a page
+
+Each component can be individually knows about html and its JS
+
+Every component assigned to a tag (selector) and renders by the consumer
+
+Register each component in angular with a name
+
+Each component can have another component (forms kind of component tree)
+
+Every angular app will have Root component, which holds child components
+
+-- 
+setup
+
+# nodejs
+# runtime env 
+install nodejs
+# verify
+node -v
+# the above installs node package module as well
+npm -v
+# editor (visualstudio)
+
+# install angular CLI
+# kick starts angular project
+npm install @angular/cli -g
+# verify
+ng --version
+
+# create simple application
+ng new angular-sample
+	installs npm dependencies
+	includes angular libraries
+	npm downloads and installs dependencies
+
+# running
+ng serve
+- this listens on http://localhost:4200
+
+---------------------------
+index.html
+- has "app-root" component, located at app/app-component*
+
+view: html + css
+model: ts
+testcases: *.spec.ts
+
+-- 
+#create new component
+ng generate component hello-world
+- this updtes "app.module.ts" file too
+- new component created as "app/hello-world" folder
+- its identified by component name as "app-hello-world" as its defined in app/hello-world/hello-world.component.css, inside @Component as selector
+- use this in index.html and add "<app-hello-world />". This would render the view of app-hello-world to index.html
+
+# creating date component
+ng generate component date
+
+--
+
+Creating typescript class
+- implements a Class "OnInit"
+
+
+Register as angular component
+- @Component registers the class to angular
+
+Component class implementation
+--
+#define a member variable
+message : string = "hello";
+- This can be included in the component view ("hello-world/hello-world.component.html" with "{{ message }}"")
+- usage of {{}} this is known as data-binding (one way data-binding)
+
+Databinding and Async
+--
