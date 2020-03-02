@@ -93,7 +93,8 @@ setup
 
 # nodejs
 # runtime env 
-install nodejs
+ng install nodejs
+
 # verify
 node -v
 # the above installs node package module as well
@@ -102,9 +103,10 @@ npm -v
 
 # install angular CLI
 # kick starts angular project
-npm install @angular/cli -g
+npm install -g @angular/cli@6
+- if @6 ignored, then latest available version will be installed
 # verify
-ng --version
+ng -v
 
 # create simple application
 ng new angular-sample
