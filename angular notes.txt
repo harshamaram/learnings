@@ -142,7 +142,6 @@ ng generate component date
 Creating typescript class
 - implements a Class "OnInit"
 
-
 Register as angular component
 - @Component registers the class to angular
 
@@ -155,3 +154,99 @@ message : string = "hello";
 
 Databinding and Async
 --
+the data within the model (date.component.ts) can be updated dynamically. Eg: constructor can have a setInterval() to update its instance variables. If these are bound to UI, the value changes dynamically. 
+
+Template Interpolation
+--
+double curly - string interpolation
+
+{{}} -- the expression inside evaluates
+{{ 10+10 }}
+
+create a method called "add()" in component class ("date.component.ts") and invoke it from html as below:
+{{ add(123, 456) }}
+
+-----
+ngFor
+
+Declaring data in typescript class
+// variable
+user: any;
+
+constructor() {
+	this.user = {
+		name: 'user name',
+		title: 'another software developer',
+		address: '123 Main St, State, 1002',
+		phone: [
+			'123-456-7890',
+			'456-789-1230'
+		]
+	};
+}
+
+// how it works on view?
+// 
+
+<p *ngFor="let num user.phone">{{num}}</p>
+
+-----
+ngIf
+
+<div *ngIf="user.phone.length > 0">
+	..
+</div>
+
+-----
+
+Passing inputs to components
+<app-date name="new name"></app-date>
+
+// in component class -
+@Input('name') userName: string; // now, access this as any member variable
+
+
+// 
+ngOnInit()
+
+Lifecycle
+--
+constructor - object creation process
+ngOnInit() // invokes after object created
+ngOnChanges() // check angular api
+
+-------
+create angular modem (like pojo)
+
+create "user.model.ts"
+
+export class User {
+	name: string;
+	designation: string;
+	address: string;
+	phone: string[];
+}
+
+---
+
+Angular invoke REST 
+
+import HttpClient module from @angular/common/http
+
+ngOnInit() {
+	let obs = this.http.get('rest-end-point');
+	obs.subscribe(() => {
+		console.log('Received the response');
+	});
+}
+
+--
+
+ngOnInit() {
+	let obs = this.http.get('rest-end-point');
+	obs.subscribe((response) => {
+		console.log(response);
+	});
+}
+
+--------------------------
