@@ -17,8 +17,18 @@ checked unchecked exceptions
 - java.lang.Error: Unrecoverable exceptions like OutOfMemeroExceptions
 - To create custom checked exceptions, extend java.lang.Exception
 - To Create custom unchecked exceptions, extend java.lang.RuntimeException
+	Error 				extends 	Throwable (unchecked)
+	Exception 			extends 	Throwable (checked)
+	RuntimeException 	extends 	Exception (unchecked)
 
-multi thread programming  
+multi thread programming 
+- java8 has "ExecutorService" concurrency API
+- initialize with 
+ExecutorService executor = Executors.newSingleThreadExecutor();
+- run it as 
+executor.submit(() ->{
+	// statements
+}); 
 synchronized  
 java 8  
 forEach  
@@ -38,19 +48,26 @@ since java5, method can be overritten by changing return type, only if the retur
 ## Spring
 dependency injection
 transactions
-Spring DI
+### Spring DI
 - default bean scope is singleton
 - prototype scope returns a new object each time a bean is referred. 
-BeanFactory vs ApplicationContext
+### BeanFactory vs ApplicationContext
 - BeanFactory is useful for lazy loading. 
 - ApplicationCotext is eagar loading of beans. 
-Spring bean scope
+### Spring bean scope
 - singleton: this is default
 - prototype: new object created eachtime a bean is requested.
 - request: request scope
 - session: sesion scope
 - global: till lifecycyle of the application context
 - Single transaction for multiple DAO methods: check PROPAGATION_REQUIRED, PROPAGATION_REQUIRES_NEW, PROPAGATION_NESTED
+	PROPAGATION_NESTED
+		Execute within a nested transaction if a current transaction exists, behave like PROPAGATION_REQUIRED otherwise.
+	PROPAGATION_REQUIRED
+		Support a current transaction; create a new one if none exists.
+	PROPAGATION_REQUIRES_NEW
+		Create a new transaction, suspending the current transaction if one exists.
+
 
 ## spring rest security
 

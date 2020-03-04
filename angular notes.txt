@@ -188,7 +188,7 @@ constructor() {
 // how it works on view?
 // 
 
-<p *ngFor="let num user.phone">{{num}}</p>
+<p *ngFor="let num of user.phone">{{num}}</p>
 
 -----
 ngIf
@@ -250,3 +250,58 @@ ngOnInit() {
 }
 
 --------------------------
+
+styling
+
+styles in css are applied to only the component's view pages; not to other components. 
+
+how to do global styles?
+add to the following
+src/styles.css
+
+---------------------------
+
+invoke click method of the component by "(click)" as shown below
+<button (click)="toggleButton()">{{buttonName}}</button>
+
+toggleButton() should be defined in component class
+
+---------------------------
+Two way data binding
+
+To use forms, need to import FormsModule in "app.module.ts"
+
+Following sybtax binds the value in the text box to the component class variable; and at the same time, if anything changes on the inputText in the componet class, it reflects back in the view
+<input type="text" [(ngModel)]="inputText"> // say inputText is component class variable
+ 
+[] --> component to view
+() --> view to component
+tip: to remember: "banana in a box" [()]
+
+---------------------------
+
+Creating a module
+ng generate module view-module
+
+Creating component under a specific module (by default, it will create under app.module)
+ng generate component view-module/view-component
+
+Notice that the above does not update app.module.ts, but it updates view-module.module.ts
+
+Export component (from the respective module* ts) and import module into other modules 
+
+----------------------------
+
+Creating a service
+ng create service <component-name> // say service-sample here
+
+This does not update app.module.ts or any other file. 
+
+Add methods to this service class and can be used in other components. 
+
+A service can be injected into component via constructor
+constructor(svc: SampleServiceService) {} 
+Note: the SampleServiceService has to be imported in the component
+
+Also, the service class needs to annotated with @Injectable
+
