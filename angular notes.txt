@@ -227,18 +227,6 @@ export class User {
 	phone: string[];
 }
 
----
-
-Angular invoke REST 
-
-import HttpClient module from @angular/common/http
-
-ngOnInit() {
-	let obs = this.http.get('rest-end-point');
-	obs.subscribe(() => {
-		console.log('Received the response');
-	});
-}
 
 --
 
@@ -304,4 +292,50 @@ constructor(svc: SampleServiceService) {}
 Note: the SampleServiceService has to be imported in the component
 
 Also, the service class needs to annotated with @Injectable
+This service needs to be defined under providers in "app.module.ts"
 
+This is a dependency Injection
+
+Any module can access service
+
+Angular maintains common service space
+
+Eventhough a service is available to all modules, its a good practise to define as "Provider" under that module, which its going to use. Other modules will be lazily loaded. 
+
+-------------------
+
+Http Client Service
+
+---
+
+Angular invoke REST 
+
+import HttpClient module from @angular/common/http
+
+ngOnInit() {
+	let obs = this.http.get('rest-end-point');
+	obs.subscribe(() => {
+		console.log('Received the response');
+	});
+}
+
+-------------------
+
+Build and deploy angular application
+(optiomization)
+
+ng build
+runs angular cli, then generates html/css and js into one folder
+this is independent of nodejs and angular
+
+// running ng build for proeuction mode
+ng build --prod
+// it will minify and AOT (ahead of time compilation)
+
+--------------------
+
+// following creates local http server
+npm install http-server -g
+
+// starts http server from a folder
+http-server <root-folder-location>
