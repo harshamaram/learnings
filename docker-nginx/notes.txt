@@ -1,0 +1,17 @@
+
+
+
+docker ps
+docker image ls
+docker container stop sample-nginx
+docker container rm sample-nginx
+docker build -t sample-nginx .
+
+docker run --name sample-nginx -d -p 8080:80 sample-nginx
+
+docker exec -t -i sample-nginx /bin/bash
+docker rmi image sample-nginx
+
+
+
+
