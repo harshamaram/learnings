@@ -1,0 +1,26 @@
+For Development activities:
+- Start and run Business Central
+- Start service application (kjar, mode & service modules) fom start.jbpm.org
+
+Create local git repo
+cd my-jbpm-process-kjar/
+git init
+git add -A
+git commit -m "initial version"
+
+
+Open Business central
+http://localhost:8080/business-central
+
+Goto Space
+- Add import project
+- To import from local filesystem use file:///{path to your business application}/{your business application name}-kjar
+- make changes or buld processes & assets in Business central
+
+Follow steps to get the code back to project from business central
+git remote add upstream http://localhost:8080/business-central/git/MySpace2/my-jbpm-process-kjar
+git fetch upstream
+git rebase upstream/master
+git status
+ls -l src/main/resources/
+
