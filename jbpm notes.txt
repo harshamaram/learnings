@@ -18,9 +18,14 @@ Goto Space
 - make changes or buld processes & assets in Business central
 
 Follow steps to get the code back to project from business central
-git remote add upstream http://localhost:8080/business-central/git/MySpace2/my-jbpm-process-kjar
-git fetch upstream
-git rebase upstream/master
+git remote add origin http://localhost:8080/business-central/git/MySpace2/my-jbpm-process-kjar
+git pull origin master
 git status
 ls -l src/main/resources/
+
+switch to service project
+cd my-jbpm-process-services
+launch.bat clean install
+http://localhost:8090/rest/server/containers
+http://localhost:8090/rest/server/containers/my-jbpm-process-kjar/processes
 
