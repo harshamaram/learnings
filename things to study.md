@@ -67,6 +67,10 @@ transactions
 		Support a current transaction; create a new one if none exists.
 	PROPAGATION_REQUIRES_NEW
 		Create a new transaction, suspending the current transaction if one exists.
+### transactions
+2 phase commit
+distributes transaction management
+XAresource
 
 
 ## spring rest security
